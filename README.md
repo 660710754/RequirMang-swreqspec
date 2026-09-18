@@ -1,13 +1,17 @@
-# <ชื่อทีม>-swreqspec
+# Requir Mang-swreqspec
 
 repo สำหรับงาน Spec-Driven Development ในรายวิชา 520461-165 Software Requirement Specification and Management
 ภาควิชาคอมพิวเตอร์ คณะวิทยาศาสตร์ มหาวิทยาลัยศิลปากร
 
 ## ทีม
 
-- ชื่อทีม:
-- สมาชิก:
-- เครื่องมือ AI ที่ใช้: (Copilot ใน Codespaces / Claude Code / Cursor)
+- ชื่อทีม: Requir Mang
+- สมาชิก: 660710710 ธนยศ รัตนสุรีย์โรจน์
+660710735 เมธาวัฒน์ คูศิริวานิชกร
+660710740 สุนิตา กริชทิณวงศ์
+660710754 ฑิฆัมพร ทองสองแก้ว
+660710762 นภสร เพชรศิริ
+- เครื่องมือ AI ที่ใช้: Copilot ใน Codespaces / Claude Code / Cursor
 
 ## โครงของ repo
 
