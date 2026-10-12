@@ -492,3 +492,68 @@
 - ขอบเขต: ไม่แก้ spec หรือโค้ด; ไม่มีการ commit หรือ push
 
 ---
+
+## 2569-10-12 คำสั่ง: /testcases AC-MENU-01
+
+- โหมด: เขียน Automated Tests จากแถวสถานะ “ใช้ได้”
+- TC ที่เขียน: TC-MENU-01-1, TC-MENU-01-2, TC-MENU-01-3
+- ไฟล์ที่เพิ่ม: tests/AC-MENU-01.test.cjs
+- ผลรัน `node --test tests/*.test.cjs`: ผ่าน 6/7, ไม่ผ่าน 1/7
+  - `test_TC_MENU_01_1_no_menu_data`: ไม่ผ่าน — app.js:49 แสดง “ไม่พบเมนู” แต่ FR-01 / AC-MENU-01 กำหนด “ขณะนี้ไม่มีรายการเครื่องดื่ม”
+  - `test_TC_MENU_01_2_show_open_menu_items`: ผ่าน
+  - `test_TC_MENU_01_3_show_single_open_menu_item`: ผ่าน
+  - Automated Tests เดิมของ AC-MENU-02: ผ่าน 4/4
+- การจัดประเภท: พบพฤติกรรมใน app.js ไม่ตรงกับ Requirement ที่เพิ่มผ่าน CR-MENU-001 (FR-01 / AC-MENU-01); ไม่แก้ระบบหรือ Test เพื่อให้ผ่าน
+- ขอบเขต: ไม่แก้ app.js หรือ spec; ไม่มีการ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: /testcases AC-MENU-02
+
+- โหมด: เขียน Automated Tests จากแถวสถานะ “ใช้ได้”
+- TC ที่เขียน: TC-MENU-02-1, TC-MENU-02-2, TC-MENU-02-3
+- ไฟล์ที่แก้: tests/AC-MENU-02.test.cjs
+- จำนวน test ในไฟล์ AC-MENU-02.test.cjs: ก่อน 4; หลัง 7; เพิ่ม 3 ตามจำนวน TC ที่เขียน
+- ผลรัน `node --test tests/AC-MENU-02.test.cjs`: ผ่าน 7/7
+- ผลรันชุดทั้งหมด `node --test tests/*.test.cjs`: ผ่าน 9/10, ไม่ผ่าน 1/10
+  - test ใหม่ทั้งสาม `test_TC_MENU_02_1_show_menu_data_and_status`, `test_TC_MENU_02_2_show_sold_out_menu`, `test_TC_MENU_02_3_show_single_available_menu`: ผ่าน
+  - test ก่อนหน้าของ AC-MENU-02: ผ่าน 4/4
+  - `test_TC_MENU_01_1_no_menu_data`: ไม่ผ่าน เพราะ app.js:49 ยังแสดง “ไม่พบเมนู” แทน Requirement “ขณะนี้ไม่มีรายการเครื่องดื่ม” ของ FR-01 / AC-MENU-01 (พบและบันทึกในรอบก่อน)
+- การจัดประเภท: ความล้มเหลวรวมเป็นบั๊กของ AC-MENU-01 ที่ทราบอยู่แล้ว ไม่ใช่ปัญหาของ test AC-MENU-02 ใหม่
+- ขอบเขต: ไม่แก้โค้ดระบบหรือ spec; ไม่มีการ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: /verify specs/001-Menu
+
+- ไฟล์ที่สร้าง/แก้: specs/001-Menu/rtm.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- ไฟล์ที่ตรวจ: spec.md, plan.md, tasks.md, test-cases.md, app.js, index.html, styles.css, tests/AC-MENU-01.test.cjs และ tests/AC-MENU-02.test.cjs
+- ผล `node --test tests/*.test.cjs`: ผ่าน 9/10, ไม่ผ่าน 1/10; `test_TC_MENU_01_1_no_menu_data` ล้มเหลวเพราะ app.js แสดง “ไม่พบเมนู” แทน “ขณะนี้ไม่มีรายการเครื่องดื่ม”
+- คำสั่ง `cd backend && pytest -v` และ `cd frontend && npm test` รันไม่ได้ เนื่องจาก repository ไม่มีโฟลเดอร์ backend/ และ frontend/
+- ตารางตามรอยไปข้างหน้า: 11 แถว — ครบ 0, ยังไม่ถึง 6, รอ Q 0, ช่องโหว่ 5
+- ข้อค้นพบใหม่: F-01 ถึง F-06 ใน rtm.md; รวม empty-state ไม่ตรง Requirement, click action ที่ไม่มีผลและ scope ไม่ชัด, ขาด test ยืนยัน read-only constraint, ความไม่ครอบคลุม/ขัดกันของ NFR-22 และ NFR-26 กับ AC/Out of scope, และค่าราคา/รูปแบบเงินที่ spec ไม่ได้กำหนด
+- AC-MENU-01 และ AC-MENU-02 มี Test Cases สถานะ “ใช้ได้” อย่างละ 3 แถว; ไม่มีการแก้ code, tests, spec, plan หรือ tasks
+- ขอบเขต: สร้างรายงานตรวจสอบเท่านั้น; ไม่มีการ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: เตรียม RTM ตามคำตัดสินทีมหลัง /verify รอบแรก
+
+- ไฟล์ที่แก้: specs/001-Menu/rtm.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- กรอกช่อง “ทีมตัดสิน” สำหรับ F-01 ถึง F-06 ตามข้อสรุปที่ทีมให้ พร้อมเหตุผลทุกข้อ
+- ตรวจเลขคำถามใน specs/001-Menu/spec.md: มี Q-03 ซึ่งปิดแล้ว และไม่มี Q ที่เปิดอยู่ จึงกำหนด Q-04 สำหรับ F-02 ใน RTM เพื่อถามผลเมื่อคลิกปุ่ม “สั่งซื้อ”; ยังไม่กำหนดคำตอบ และยังไม่ได้บันทึก Q-04 ลง Spec
+- จัดประเภทให้สอดคล้องกับคำตัดสิน: F-01 แก้โค้ด; F-02 รอ Q-04; F-03 AC ไม่มี test (เพิ่ม Automated Test โดยไม่เปลี่ยนพฤติกรรมระบบ); F-04/F-05 test อ่อนและ NFR กับ AC ไม่สอดคล้องกัน (แก้ Spec ผ่าน CR); F-06 เป็นข้อมูลตัวอย่าง ไม่ใช่บั๊ก พร้อมข้อพิจารณาเรื่องแหล่งข้อมูล/รูปแบบราคาใน Spec
+- รายการดำเนินการต่อ: แก้โค้ด F-01; ให้ทีมตอบ Q-04 ก่อนตัดสินพฤติกรรมปุ่ม; เพิ่ม Automated Test สำหรับ read-only constraint ของ F-03; ดำเนิน CR เพื่อปรับ NFR-26/AC-MENU-07 และ NFR-22/AC-MENU-06 ของ F-04/F-05; ให้ทีมพิจารณาความจำเป็นต้องระบุแหล่งข้อมูลและรูปแบบราคาใน Spec สำหรับ F-06
+- ไม่แก้ code, Automated Tests หรือ Spec; ไม่ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: บันทึก F-07 จากการตรวจทาน Spec ของทีม
+
+- ไฟล์ที่แก้: specs/001-Menu/rtm.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- เพิ่ม F-07 ประเภท “ข้อกำหนดขัดแย้งกัน” พร้อมหลักฐานจาก Constraints, FR-05, AC-MENU-04 และ ASM-04
+- ระบุที่มาว่าเป็นข้อค้นพบจากการตรวจทาน Spec ของทีม ตามที่ทีมแจ้งว่าสมาชิกตรวจทานและยืนยันความขัดแย้ง
+- ทีมตัดสิน: แก้ Spec ผ่าน CR ให้สอดคล้อง โดยต้องคงการแสดงเมนูหมดสต็อกพร้อมสถานะ “หมด” แม้ไม่มีโปรโมชั่น
+- ไม่แก้ spec.md, app.js หรือ Automated Tests; ไม่ commit หรือ push
+
+---
