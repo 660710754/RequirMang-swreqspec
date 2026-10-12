@@ -557,3 +557,98 @@
 - ไม่แก้ spec.md, app.js หรือ Automated Tests; ไม่ commit หรือ push
 
 ---
+
+## 2569-10-12 คำสั่ง: ปิดข้อค้นพบ F-01
+
+- ไฟล์ที่แก้: app.js, specs/001-Menu/rtm.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- ก่อนแก้ ตรวจ F-01, FR-01/AC-MENU-01 และ Automated Tests ที่มีการเปลี่ยนแปลงค้างอยู่แล้ว; ไม่ลบหรือเขียนทับไฟล์ Test
+- แก้เฉพาะ empty-list branch ใน `renderMenu` ให้แสดง “ขณะนี้ไม่มีรายการเครื่องดื่ม” ตาม FR-01/AC-MENU-01; ไม่เปลี่ยนข้อความ “ไม่พบเมนู” ใน Spec สำหรับกรณีค้นหาไม่พบตาม FR-03
+- ผล `node --test tests/*.test.cjs`: ผ่าน 10/10, ไม่ผ่าน 0/10; `test_TC_MENU_01_1_no_menu_data` ผ่านหลังแก้ไข และ Test ทั้งหมดของ AC-MENU-01/02 ผ่าน
+- อัปเดต RTM: FR-01 เปลี่ยนเป็น “ครบ”; ย้าย F-01 จากข้อค้นพบไป “แก้แล้ว” พร้อมหลักฐานผล Test; ไม่เปลี่ยน F-02 ถึง F-07
+- ไม่แก้ spec หรือ Test; ไม่ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: ปรับ Requirement ตามคำตอบ Q-04 / CR-MENU-002
+
+- ไฟล์ที่สร้าง/แก้: specs/changes/CR-MENU-002.md, specs/001-Menu/spec.md, specs/CHANGELOG.md, specs/001-Menu/rtm.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- ตรวจ F-02 และ Q-04 ใน RTM; สร้าง CR-MENU-002 โดยอ้าง F-02/Q-04 พร้อมเหตุผล ผลกระทบ และสถานะอนุมัติของทีม
+- ปิด Q-04 ใน Resolved Decisions; ปรับ spec เป็น Draft v5; ปรับ FR-02, ASM-02 และ AC-MENU-02 ให้เมื่อคลิกปุ่ม “สั่งซื้อ” ของเมนูเปิดขายแสดง “ระบบสั่งซื้อออนไลน์ยังไม่เปิดให้บริการ” โดยไม่สร้าง Order ออนไลน์
+- คง Constraint ว่าเมนูหมดสต็อกแสดง “หมด” และสั่งไม่ได้; ไม่เพิ่มการสร้าง Order ออนไลน์
+- อัปเดต Changelog ใน spec.md และ specs/CHANGELOG.md; ปรับ F-02 ใน RTM เป็น “Q-04 ตอบแล้ว; รอแก้ Code และ Test”
+- ไม่แก้ F-03 ถึง F-07; ไม่แก้ app.js หรือ Automated Tests; ไม่ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: เตรียม T-02 และบันทึก TC-MENU-02-4
+
+- ไฟล์ที่แก้: specs/001-Menu/tasks.md, specs/001-Menu/test-cases.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- ตรวจขอบเขต T-02 เดิม: แสดงชื่อ ราคา รายละเอียด สถานะ, รองรับปุ่มเมนูเปิดขาย และแสดง “หมด” สำหรับเมนูหมดสต็อก; คงงานเดิมทั้งหมด
+- ขยายรายละเอียด T-02 ตาม FR-02/Q-04/CR-MENU-002 ให้รวมข้อความหลังคลิกปุ่มเปิดขายและคงปุ่ม disabled ของเมนูหมดสต็อก; ระบุ Allowed files และ Done Criteria; สถานะยังเป็น pending
+- บันทึก TC-MENU-02-4 ตามที่ทีมอนุมัติแล้ว สถานะ “ใช้ได้”; อ้าง AC-MENU-02, Q-04 และ CR-MENU-002
+- ปรับ reference ของ test-cases.md เป็น Draft v5 ให้ตรงกับ Spec ปัจจุบัน
+- ไม่แก้ app.js, Automated Tests, Task อื่น หรือ RTM; ไม่ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: บันทึกสถานะ F-02 ก่อน /verify รอบสอง
+
+- ไฟล์ที่แก้: specs/001-Menu/rtm.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- ยืนยัน T-02 ยัง pending และ TC-MENU-02-4 ยังมีสถานะ “ใช้ได้” ตามการอนุมัติของทีม
+- ระบุใน RTM ว่า F-02 ยังไม่ปิดและรอ T-02 รวมถึง Automated Test ที่ตรวจผลจากการคลิกปุ่มจริง
+- บันทึกเหตุผลที่ยังไม่มี Test: Test ใช้ `node:test` กับ mock `document`/`innerHTML` ผ่าน `node:vm` โดยไม่มี DOM/browser test library จึงไม่สามารถจำลองการคลิกปุ่ม DOM จริงและตรวจผลหน้าจอได้; รอบนี้ห้ามติดตั้ง dependency หรือเพิ่มเครื่องมือ จึงยังไม่สร้าง Test และไม่ใช้การตรวจ source code แทน
+- ไม่แก้ app.js, Automated Tests, Spec, tasks.md, test-cases.md หรือ F-03 ถึง F-07; ไม่ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: แก้ F-04/F-05 ผ่าน CR-MENU-003
+
+- ไฟล์ที่สร้าง/แก้: specs/changes/CR-MENU-003.md, specs/001-Menu/spec.md, specs/CHANGELOG.md, specs/001-Menu/rtm.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- ตรวจคำตัดสินทีมใน F-04/F-05 และ NFR-26, NFR-22, AC-MENU-07, AC-MENU-06 ก่อนแก้; เลข CR ล่าสุดเดิมคือ CR-MENU-002 จึงใช้ CR-MENU-003
+- บันทึก CR-MENU-003 ตามคำตัดสินที่ทีมอนุมัติแล้ว: NFR-26/AC-MENU-07 จำกัดเฉพาะภารกิจค้นหาเมนู คงเกณฑ์ผู้ใช้ใหม่ 8 ใน 10 คน; NFR-22/AC-MENU-06 จำกัดเฉพาะหน้าเมนู คง p95 ไม่เกิน 2 วินาทีภายใต้ผู้ใช้พร้อมกัน 100 คน
+- ปรับ Spec เป็น Draft v6 และเพิ่มรายการใน Changelog ทั้งใน spec.md และ specs/CHANGELOG.md
+- อัปเดต RTM: ย้าย F-04/F-05 ไป “แก้แล้ว” พร้อมหลักฐาน CR/Spec; NFR-22/NFR-26 ระบุ “ยังไม่ถึง” เนื่องจาก T-06/T-07 ยัง pending และยังไม่มีผลทดสอบตามเกณฑ์
+- ไม่แก้ app.js, Automated Tests หรือ Task ใด; ไม่เปลี่ยนสถานะ T-02; ไม่ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: แก้ F-07 ผ่าน CR-MENU-004
+
+- ไฟล์ที่สร้าง/แก้: specs/changes/CR-MENU-004.md, specs/001-Menu/spec.md, specs/CHANGELOG.md, specs/001-Menu/rtm.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- ตรวจคำตัดสิน F-07 ใน RTM; CR ล่าสุดก่อนหน้านี้คือ CR-MENU-003 จึงใช้ CR-MENU-004
+- บันทึกคำตัดสินที่ทีมอนุมัติ: เมื่อไม่มีโปรโมชั่นไม่แสดงส่วนโปรโมชั่น แต่ยังแสดงเมนูเปิดขายและเมนูหมดสต็อก โดยเมนูหมดสต็อกแสดง “หมด” และปุ่ม “สั่งซื้อ” กดไม่ได้
+- ปรับ FR-05, AC-MENU-04 และ ASM-04 ให้ตรงกัน; ปรับ Spec เป็น Draft v7 และเพิ่ม Changelog ใน Spec กับ specs/CHANGELOG.md
+- ย้าย F-07 ไปส่วน “แก้แล้ว” ใน RTM พร้อมหลักฐาน CR-MENU-004 และข้อความใน Spec Draft v7
+- ไม่แก้โค้ด, Automated Tests หรือ Tasks; ไม่เปลี่ยนสถานะ T-02; ไม่ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: /verify รอบสอง
+
+- ไฟล์ที่แก้: specs/001-Menu/rtm.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- ตรวจ Spec Draft v7, plan.md, tasks.md, test-cases.md, โค้ด `app.js`/`index.html`/`styles.css` และ Automated Tests ทั้งหมดใน `tests/`
+- ผล `node --test tests/*.test.cjs`: ผ่าน 10/10, ไม่ผ่าน 0/10; `git diff --check` ผ่าน
+- ตามรอย 11 แถว requirement/constraints: ครบ 1, ยังไม่ถึง 8, รอ Q 0, ช่องโหว่ 2 (FR-02/F-02 และ read-only Constraint/F-03)
+- สถานะข้อค้นพบเดิม: F-01, F-04, F-05 และ F-07 ยืนยันว่าแก้แล้ว; F-02 ยังรอ T-02 และ Automated Test ของ TC-MENU-02-4; F-03 ยังไม่มี Test ยืนยัน read-only; F-06 คงเป็นข้อมูลตัวอย่างตามคำตัดสินทีม ไม่ใช่บั๊ก
+- ตรวจ Q-04 ใน Resolved Decisions แล้ว; F-04/F-05 และ F-07 สอดคล้องกับ CR-MENU-003/004 และ Spec ปัจจุบัน
+- เพิ่ม F-08: plan.md ยังมีข้อความเรื่องเมนูเมื่อไม่มีโปรโมชั่นและ Constraints ที่ไม่ตรงกับ Spec v7; เพิ่ม F-09: test-cases.md ยังอ้าง Draft v5 และระบุ vitest ขณะที่ Automated Tests ใช้ `node:test`; เว้นช่องทีมตัดสินไว้
+- ไม่แก้โค้ด, Automated Tests, Spec, plan.md, tasks.md หรือ test-cases.md; ไม่ติดตั้งเครื่องมือ; ไม่ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: ปรับ T-04 ให้สอดคล้องกับ Spec Draft v7
+
+- ไฟล์ที่แก้: specs/001-Menu/tasks.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- แก้เฉพาะข้อความข้อกำหนดใน T-04 ให้ตรงกับ FR-05, AC-MENU-04, ASM-04 และ CR-MENU-004: เมื่อไม่มีโปรโมชั่นให้ซ่อนเฉพาะส่วนโปรโมชั่น แต่ยังแสดงเมนูทั้งหมด รวมถึงเมนูหมดสต็อกที่แสดง “หมด” และปุ่ม “สั่งซื้อ” กดไม่ได้
+- คงสถานะ T-04 เป็น pending; ไม่แก้ Task อื่น โค้ด หรือ Automated Tests
+- ไม่ commit หรือ push
+
+---
+
+## 2569-10-12 คำสั่ง: แก้ F-08/F-09 ตามคำตัดสินทีม
+
+- ไฟล์ที่แก้: specs/001-Menu/plan.md, specs/001-Menu/test-cases.md, specs/001-Menu/rtm.md; เพิ่มบันทึกนี้ท้าย prompt-log.md
+- บันทึกคำตัดสินและเหตุผลของทีมใน F-08/F-09 ใน RTM แล้วย้ายทั้งสองข้อไป “แก้แล้ว” พร้อมหลักฐานจาก Spec Draft v7, CR-MENU-004 และชุดทดสอบที่ใช้จริง
+- ปรับ plan.md เฉพาะข้อความที่ไม่ตรงกับ Spec v7/CR-MENU-004: เมื่อไม่มีโปรโมชั่นยังแสดงเมนูหมดสต็อกพร้อม “หมด” และปุ่มสั่งซื้อกดไม่ได้; แก้ข้อความที่ระบุว่าไม่มี Constraints และปรับ API/แผนทดสอบที่กล่าวถึงเมนูเปิดขายอย่างเดียวให้ครอบคลุมเมนูหมดสต็อกด้วย
+- ปรับ test-cases.md ให้อ้างอิง SPEC-MENU-001 Draft v7 และเปลี่ยนเครื่องมือทุกแถวจาก vitest (หน้าจอ) เป็น node:test ตาม runner ที่ใช้จริง
+- คง Task และสถานะ Task เดิม; ไม่แก้โค้ดหรือเพิ่ม Automated Tests; ไม่ติดตั้งเครื่องมือ; ไม่ commit หรือ push

@@ -46,7 +46,7 @@ function formatPrice(value) {
 
 function renderMenu(items) {
   if (!items || items.length === 0) {
-    menuListElement.innerHTML = '<p>ไม่พบเมนู</p>';
+    menuListElement.innerHTML = '<p>ขณะนี้ไม่มีรายการเครื่องดื่ม</p>';
     return;
   }
 
